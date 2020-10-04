@@ -1,0 +1,7 @@
+setup.py
+Fixed_Generation_Parser.egg-info/PKG-INFO
+Fixed_Generation_Parser.egg-info/SOURCES.txt
+Fixed_Generation_Parser.egg-info/dependency_links.txt
+Fixed_Generation_Parser.egg-info/top_level.txt
+file_process/__init__.py
+file_process/fixed_parser.py

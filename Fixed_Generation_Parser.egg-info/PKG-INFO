@@ -1,0 +1,11 @@
+Metadata-Version: 1.2
+Name: Fixed-Generation-Parser
+Version: 0.1
+Summary: Package to generate fixed file and parse based on json specification
+Home-page: UNKNOWN
+Author: Mohan MS
+Author-email: mohanbabueee@gmail.com
+License: None
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.6

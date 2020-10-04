@@ -1,0 +1,2 @@
+# fixed file generator and parser based on specification in json file
+package to generate fixed file and parser it for delimiting
