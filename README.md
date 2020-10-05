@@ -88,6 +88,7 @@ docker run -it -v {PWD}/data/:/processing/data --rm fileprocess:latest python3 .
   ```only standard python(inbuilt) libraries are used```
 
 - Pay attention to encoding
+
   ```
   fixed width encoding and delimited encoding has been considered while writing and reading.
   ```
