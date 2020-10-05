@@ -1,7 +1,9 @@
 # File Generator and Parser
 ## Build Docker
 
+```
 docker build . --tag=fileprocess:latest
+```
 
 ## Unit testing
 I have used inbuilt python únittest package for this testin
