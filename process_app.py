@@ -47,7 +47,6 @@ def main(args):
                         open(options.output_file, "w", encoding=metadata.delimitedEncoding) as f:
                     writer = csv.writer(f, delimiter=delimiter, lineterminator='\n')
                     if metadata.include_header:
-                        print(file_read.column_names)
                         writer.writerow(file_read.column_names)
                     for line in file_read:
                         writer.writerow(line)

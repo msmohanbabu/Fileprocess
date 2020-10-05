@@ -1,12 +1,13 @@
 import unittest
-import utils
-import json
+from test.utils import create_temporary_file
 import logging
 import sys
 import inspect
 import itertools
 import tempfile
 import os
+import json
+
 sys.path.append('../file_process')
 from file_process.fixed_parser import FixedFileWriter, FixedWidthMetaData, FixedFileReader, JsonMatchException
 
@@ -56,8 +57,8 @@ class FixedWidthMetaDataTest(unittest.TestCase):
     def setUp(self):
         self.column_names = ["f1", "f2", "f3"]
         self.offset = ["2", "3", "4"]
-        self.temp_file_pass = open(utils.create_temporary_file('.json', JSON_PASS), 'r')
-        self.temp_file_fail = open(utils.create_temporary_file('.json', JSON_FAIL), 'r')
+        self.temp_file_pass = open(create_temporary_file('.json', JSON_PASS), 'r')
+        self.temp_file_fail = open(create_temporary_file('.json', JSON_FAIL), 'r')
         self.output_file_name = "fixed_out_file"
         self.spec_pass = FixedWidthMetaData(json.load(self.temp_file_pass))
         self.char_set = "AB"
@@ -83,7 +84,7 @@ class FixedWidthMetaDataTest(unittest.TestCase):
 
     def test_JsonSpecification(self):
         """Validate JSON for the parsed column names"""
-        logger.info(self.shortDescription())
+        logger.warning(self.shortDescription())
         self.assertEqual(self.column_names, self.spec_pass.columns)
         self.assertTrue(self.spec_pass.include_header)
         self.assertEqual(self.offset, self.spec_pass.offsets)
@@ -92,14 +93,14 @@ class FixedWidthMetaDataTest(unittest.TestCase):
 
     def test_Exception(self):
         """Throws JsonMatchException"""
-        logger.info(self.shortDescription())
+        logger.warning(self.shortDescription())
 
         with self.assertRaises(JsonMatchException):
             FixedWidthMetaData(json.load(self.temp_file_fail))
 
     def test_GenerateRecord(self):
         """Generate fixed length records based on JSON spec"""
-        logger.info(self.shortDescription())
+        logger.warning(self.shortDescription())
         with FixedFileWriter(self.output_file_name, self.spec_pass) as f_write:
             record = ''.join(str(x) for x in f_write.generate_fixed_records(self.char_set))
         self.assertEqual(self.record_length, len(record))
@@ -113,7 +114,7 @@ class FixedFileWriterTest(unittest.TestCase):
         pass
 
     def setUp(self):
-        self.spec_file = open(utils.create_temporary_file('.json', JSON_PASS), 'r')
+        self.spec_file = open(create_temporary_file('.json', JSON_PASS), 'r')
         self.test_spec = FixedWidthMetaData(json.load(self.spec_file))
         self.test_record_fields = []
         self.test_record = ""
@@ -134,7 +135,7 @@ class FixedFileWriterTest(unittest.TestCase):
 
     def test_GenerateRecord(self):
         """Generate fixed length records based on JSON spec"""
-        logger.info(self.shortDescription())
+        logger.warning(self.shortDescription())
         with FixedFileWriter(self.fixed_file.name, self.test_spec) as fixed_writer:
             self.test_record_fields = fixed_writer.generate_fixed_records(self.char_set)
             self.test_record = ''.join(str(x) for x in fixed_writer.generate_fixed_records(self.char_set))
@@ -149,7 +150,7 @@ class FixedFileWriterTest(unittest.TestCase):
 
     def test_WriteFixedRecord(self):
         """ Write the generated record in to the fixed out file"""
-        logger.info(self.shortDescription())
+        logger.warning(self.shortDescription())
         test_generated_fields = ["AA", "BBB", "CCCC"]
         with FixedFileWriter(self.fixed_file.name, self.test_spec) as fixed_writer:
             first_record = ''.join(str(x) for x in test_generated_fields)
@@ -171,7 +172,7 @@ class FixedFileReaderTest(unittest.TestCase):
         pass
 
     def setUp(self):
-        self.spec_file = open(utils.create_temporary_file('.json', JSON_PASS), 'r')
+        self.spec_file = open(create_temporary_file('.json', JSON_PASS), 'r')
         self.test_spec = FixedWidthMetaData(json.load(self.spec_file))
         self.test_read_file = tempfile.NamedTemporaryFile("w", delete=False)
         self.test_read_file.write("f1f2 f3  \n")
@@ -196,7 +197,7 @@ class FixedFileReaderTest(unittest.TestCase):
     def test_ParseRead(self):
         """Validate delimited file contents"""
         import csv
-        logger.info(self.shortDescription())
+        logger.warning(self.shortDescription())
         with FixedFileReader(self.test_read_file.name, self.test_spec, ",") as test_file_read, \
             open(self.test_delimited_file.name, "w", encoding=self.test_spec.delimitedEncoding) as f:
             writer = csv.writer(f, delimiter=",", lineterminator='\n')
@@ -215,9 +216,14 @@ class FixedFileReaderTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    #suite = unittest.TestLoader().loadTestsFromTestCase(FixedFileTest)
-    #unittest.TextTestRunner(verbosity=2).run(suite)
+    import io
+
+    suite = unittest.TestLoader().loadTestsFromTestCase(FixedWidthMetaDataTest)
     #from pprint import pprint
+    result = unittest.TestResult()
+    runner = unittest.TextTestRunner(verbosity=2, stream=io.StringIO()).run(suite)
+    runner._makeResult = lambda: result
+    runner.run(unittest.TestSuite())
     unittest.main()
     #pprint(suite)
 
