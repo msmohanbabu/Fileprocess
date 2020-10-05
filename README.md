@@ -85,8 +85,9 @@ docker run -it -v {PWD}/data/:/processing/data --rm fileprocess:latest python3 .
   FixedFileReader - create a delimited file based on spec from "FixedWidthMetaData"
   ```
 - DO NOT use python libraries like pandas for parsing. You can use the standard library to write out a csv file (If you feel like)
-  ```only standard python(inbuilt) libraries are used```
-
+  ```
+  only standard python(inbuilt) libraries are used```
+  ```
 - Pay attention to encoding
 
   ```
