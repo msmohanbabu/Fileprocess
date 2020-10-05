@@ -76,8 +76,6 @@ docker run -it -v {PWD}/data/:/processing/data --rm fileprocess:latest python3 .
 - Generate a fixed width file using the provided spec (offset provided in the spec file represent the length of each field).
   ```
   FixedWidthMetaData - handles the fixed file specification based on spec.json 
-  ```
-  ```
   FixedFileWriter - generates a file with fixed width records based on spec "FixedWidthMetaData"
   ```  
 - Implement a parser that can parse the fixed width file and generate a delimited file, like CSV for example.
@@ -93,9 +91,6 @@ docker run -it -v {PWD}/data/:/processing/data --rm fileprocess:latest python3 .
   ```
 - Pay attention to encoding
 
-  ```
+  ``
   fixed width encoding and delimited encoding has been considered while writing and reading.
   ```
-
-
-
