@@ -81,10 +81,13 @@ docker run -it -v {PWD}/data/:/processing/data --rm fileprocess:latest python3 .
   FixedFileWriter - generates a file with fixed width records based on spec "FixedWidthMetaData"
   ```  
 - Implement a parser that can parse the fixed width file and generate a delimited file, like CSV for example.
+
   ```
   FixedFileReader - create a delimited file based on spec from "FixedWidthMetaData"
   ```
+
 - DO NOT use python libraries like pandas for parsing. You can use the standard library to write out a csv file (If you feel like)
+
   ```
   only standard python(inbuilt) libraries are used
   ```
