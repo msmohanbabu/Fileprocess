@@ -7,8 +7,8 @@ import inspect
 import itertools
 import tempfile
 import os
-
-from fixedfile_parser.FixedFile import FixedFileWriter, FixedWidthMetaData, FixedFileReader, JsonMatchException
+sys.path.append('../file_process')
+from file_process.fixed_parser import FixedFileWriter, FixedWidthMetaData, FixedFileReader, JsonMatchException
 
 JSON_PASS = ''' {
     "ColumnNames": [

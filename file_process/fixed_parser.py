@@ -1,6 +1,4 @@
-import itertools
 import logging
-import traceback
 import random
 import ast
 
@@ -32,18 +30,18 @@ class FixedWidthMetaData:
                 self.columns = metadata["ColumnNames"]
                 self.offsets = metadata["Offsets"]
                 if "FixedWidthEncoding" not in metadata:
-                    logging.WARN(""""\"FixedWidthEncoding\" does not exist. 
+                    logging.warning("""\"FixedWidthEncoding\" does not exist. 
                      Default encoding \"windows-1252\" has been applied""")
 
                 self.fixedWidthEncoding = metadata.get("FixedWidthEncoding", "windows-1252")
 
                 if "DelimitedEncoding" not in metadata:
-                    logging.WARN(""""\"DelimitedEncoding\" does not exist. 
+                    logging.warning("""\"DelimitedEncoding\" does not exist. 
                                     Default encoding \"utf-8\" has been applied""")
                 self.delimitedEncoding = metadata.get("DelimitedEncoding", "utf-8")
 
                 if "IncludeHeader" not in metadata:
-                    logging.WARN(""""\"IncludeHeader\" does not exist. 
+                    logging.warning("""\"IncludeHeader\" does not exist. 
                      Header is not included in the file""")
 
                 self.include_header: bool = ast.literal_eval(metadata.get("IncludeHeader", "False"))
@@ -54,12 +52,13 @@ class FixedWidthMetaData:
                     #self.columnOffsets = dict(zip(self.columns, self.offsets))
                     self.columnOffsets = dict(zip(self.columns, [*map(int, self.offsets)]))
         except JsonMatchException as ex:
+            logger.exception(ex.args)
             raise ex
         except KeyError as ex:
-            logger.exception(ex)
-            raise JsonMatchException(ex.__str__())
+            logger.exception(ex.args)
+            raise JsonMatchException()
         except Exception as ex:
-            logger.exception(ex)
+            logger.exception(ex.args)
             raise ex
 
 

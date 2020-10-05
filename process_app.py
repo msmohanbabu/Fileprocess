@@ -5,7 +5,7 @@ import sys
 import traceback
 import logging
 import csv
-from fixed_parser import FixedWidthMetaData, FixedFileWriter, JsonMatchException, FixedFileReader
+from file_process.fixed_parser import FixedWidthMetaData, FixedFileWriter, JsonMatchException, FixedFileReader
 
 ###################################################################
 # Arguments to be passed:                                         #
