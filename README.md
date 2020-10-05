@@ -20,21 +20,23 @@ usage: Generate Fixed File or CSV file from Fixed File. [-h] --run {gen-fixed,pa
   --input FIXED_FILE    fixed file is required for delimited file generation
   ```
 ### Arguments to generate fixed width file
-
+```
 python3 process_app.py \
 --run gen-fixed \
 --metadata data/spec.json \
 --out data/fixedfile.txt \ # fixed width records will be written here
 --num-records 50 
+```
 
 ### Arguments to parse the fixed file and create delimited file
-
+```
 python3 process_app.py \
 --run parse-fixed-csv \
 --metadata data/spec.json \
 --input data/fixedfile.txt \
 --out data/delimited_out.csv \
 --delimiter "," # default one is comma ","
+
 
 ## Build Docker
 
