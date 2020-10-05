@@ -3,9 +3,11 @@
 docker build . --tag=fileprocess:latest
 
 #Unit testing
-I have used inbuilt python únittest package for this testing
+I have used inbuilt python únittest package for this testin
+```
+docker run -it -v `pwd/data/:/processing/data --rm fileprocess:latest python3 -m unittest test/file_process_test.py
+```
 
-docker run -it -v `pwd`/data/:/processing/data --rm fileprocess:latest python3 -m unittest test/file_process_test.py
 #Running it
 1) create a directory to mount
     ```
